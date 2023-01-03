@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import 'react-calendar/dist/Calendar.css';
+import { Calendar } from 'react-calendar';
+import { useState } from 'react';
+
+
 
 function App() {
+
+  function addNewDayNotesChange(e) {
+    setNewDayNotes(e.target.value);
+  }
+  
+  function handleAddDayNotes(e) {
+    e.preventDefault();
+    setDayNotes([...dayNotes, newDayNotes]);
+    setNewDayNotes('');
+  }
+
+  const [value, onChange] = useState(new Date());
+  const [dayNotes, setDayNotes] = useState([]);
+  const [newDayNotes, setNewDayNotes] = useState('');
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="window">
+        <Calendar onChange={onChange} value={value}/>
+        <input 
+        type="text"
+        value={newDayNotes}
+        onChange={addNewDayNotesChange}
+        ></input>
+        <button onClick={handleAddDayNotes}>+</button>
+        {dayNotes.map((dayNotes, index) => (
+          <p key={index}>{dayNotes}</p>
+        ))}
+        
+      </div>
+
     </div>
   );
 }
