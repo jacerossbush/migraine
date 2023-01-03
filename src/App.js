@@ -23,6 +23,9 @@ function App() {
   return (
     <div className="App">
       <div className="window">
+        <div className='top-bar'>
+          <p>Welcome Back!</p>
+        </div>
         <Calendar onChange={onChange} value={value}/>
         <input 
         type="text"
