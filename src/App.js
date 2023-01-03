@@ -9,7 +9,6 @@ function App() {
   const [newDayNotes, setNewDayNotes] = useState('');
 
   function addDayNotes(e) {
-    e.preventDefault();
     setDayNotes([...dayNotes, newDayNotes]);
     setNewDayNotes('');
   }
