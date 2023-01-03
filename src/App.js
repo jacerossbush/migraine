@@ -3,42 +3,39 @@ import 'react-calendar/dist/Calendar.css';
 import { Calendar } from 'react-calendar';
 import { useState } from 'react';
 
-
-
 function App() {
+  const [value, onChange] = useState(new Date());
+  const [dayNotes, setDayNotes] = useState([]);
+  const [newDayNotes, setNewDayNotes] = useState('');
 
-  function addNewDayNotesChange(e) {
-    setNewDayNotes(e.target.value);
-  }
-  
-  function handleAddDayNotes(e) {
+  function addDayNotes(e) {
     e.preventDefault();
     setDayNotes([...dayNotes, newDayNotes]);
     setNewDayNotes('');
   }
 
-  const [value, onChange] = useState(new Date());
-  const [dayNotes, setDayNotes] = useState([]);
-  const [newDayNotes, setNewDayNotes] = useState('');
   return (
     <div className="App">
       <div className="window">
         <div className='top-bar'>
-          <p>Welcome Back!</p>
+          <p>Welcome Back Champ!</p>
         </div>
         <Calendar onChange={onChange} value={value}/>
         <input 
-        type="text"
-        value={newDayNotes}
-        onChange={addNewDayNotesChange}
-        ></input>
-        <button onClick={handleAddDayNotes}>+</button>
+          type="text"
+          value={newDayNotes}
+          onChange={e => (setNewDayNotes(e.target.value))}
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              addDayNotes(e);
+            }
+          }}
+        />
+        <button onClick={addDayNotes}>+</button>
         {dayNotes.map((dayNotes, index) => (
           <p key={index}>{dayNotes}</p>
         ))}
-        
       </div>
-
     </div>
   );
 }
